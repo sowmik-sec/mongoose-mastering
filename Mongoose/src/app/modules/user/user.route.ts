@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 
 router.get("/", getUsers);
-router.get("/admin", getAdminUsers);
+router.get("/admins", getAdminUsers);
 router.get("/:id", getUserById);
 router.post("/create-user", createUser);
 

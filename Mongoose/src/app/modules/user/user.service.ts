@@ -1,4 +1,5 @@
-import { IUser } from "./user.interface";
+import { HydratedDocument } from "mongoose";
+import { IUser, IUserMethods } from "./user.interface";
 import { User } from "./user.model";
 
 export const createUserToDb = async (payload: IUser): Promise<IUser> => {
@@ -18,7 +19,7 @@ export const getUserByIdFromDb = async (
   const user = await User.findOne({ id: payload }, { name: 1, contactNo: 1 });
   return user;
 };
-export const getAdminUsersFromDb = async (): Promise<IUser[] | null> => {
-  const user = await User.find({ role: "admin" }, { name: 1, contactNo: 1 });
+export const getAdminUsersFromDb = async () => {
+  const user = await User.getAdminUsers();
   return user;
 };
