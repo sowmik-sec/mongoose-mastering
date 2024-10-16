@@ -1,7 +1,9 @@
-import { model, Schema } from "mongoose";
-import { IUser } from "./user.interface";
+import { Model, model, Schema } from "mongoose";
+import { IUser, IUserMethods } from "./user.interface";
 
-export const userSchema = new Schema<IUser>({
+type UserModel = Model<IUser, {}, IUserMethods>;
+
+export const userSchema = new Schema<IUser, UserModel, IUserMethods>({
   id: {
     type: String,
     required: true,
@@ -58,4 +60,11 @@ export const userSchema = new Schema<IUser>({
     required: true,
   },
 });
-export const User = model<IUser>("User", userSchema);
+
+userSchema.method("fullName", function fullName() {
+  return (
+    this.name.firstName + " " + this.name.middleName + " " + this.name.lastName
+  );
+});
+
+export const User = model<IUser, UserModel>("User", userSchema);
