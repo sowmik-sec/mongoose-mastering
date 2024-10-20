@@ -11,3 +11,15 @@ export const getBooksByGenreFromDb = async (
   ]);
   return books;
 };
+
+export const getBooksByGenreAndPublisherFromDb = async (
+  genre: string,
+  publisher: string
+): Promise<IBook[]> => {
+  const books = await Book.aggregate([
+    {
+      $match: { genre, "publisher.name": publisher },
+    },
+  ]);
+  return books;
+};
