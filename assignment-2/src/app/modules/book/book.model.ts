@@ -73,4 +73,24 @@ bookSchema.static("getPopularBooks", async function getPopularBooks() {
   return books;
 });
 
+bookSchema.static(
+  "makePriceFieldToNumber",
+  async function makePriceFieldToNumber() {
+    const result = await this.updateMany(
+      {
+        publication_year: { $gt: 2020 },
+        price: { $type: "string" },
+      },
+      [
+        {
+          $set: {
+            price: { $toDouble: "$price" },
+          },
+        },
+      ]
+    );
+    return result;
+  }
+);
+
 export const Book = mongoose.model<IBook, BookModel>("books", bookSchema);

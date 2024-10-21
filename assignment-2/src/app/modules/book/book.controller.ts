@@ -27,3 +27,8 @@ export const getPopularBooks = async (req: Request, res: Response) => {
   const books = await Book.getPopularBooks();
   res.status(200).json(books);
 };
+
+export const updatePriceField = async (req: Request, res: Response) => {
+  const result = await Book.makePriceFieldToNumber();
+  res.status(200).json({ message: "Prices updated successfully", result });
+};

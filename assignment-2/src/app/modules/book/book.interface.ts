@@ -19,4 +19,5 @@ export interface IBook {
 
 export interface BookModel extends Model<IBook> {
   getPopularBooks(): Promise<HydratedDocument<IBook>>;
+  makePriceFieldToNumber(): Promise<HydratedDocument<IBook>>;
 }
