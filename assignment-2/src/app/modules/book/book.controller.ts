@@ -3,6 +3,7 @@ import {
   getBooksByGenreAndPublisherFromDb,
   getBooksByGenreFromDb,
 } from "./book.service";
+import { Book } from "./book.model";
 
 export const getBooksByGenreAndPublisher = async (
   req: Request,
@@ -20,4 +21,9 @@ export const getBooksByGenreAndPublisher = async (
     const books = await getBooksByGenreAndPublisherFromDb(genre, publisher);
     res.status(200).json(books);
   }
+};
+
+export const getPopularBooks = async (req: Request, res: Response) => {
+  const books = await Book.getPopularBooks();
+  res.status(200).json(books);
 };

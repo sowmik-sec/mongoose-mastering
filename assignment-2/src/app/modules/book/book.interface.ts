@@ -1,3 +1,5 @@
+import { HydratedDocument, Model } from "mongoose";
+
 export interface IBook {
   title: string;
   author: string[];
@@ -13,4 +15,8 @@ export interface IBook {
     user: string;
     comment: string;
   }[];
+}
+
+export interface BookModel extends Model<IBook> {
+  getPopularBooks(): Promise<HydratedDocument<IBook>>;
 }
